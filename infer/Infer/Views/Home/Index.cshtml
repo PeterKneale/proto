@@ -1,3 +1,35 @@
-﻿@{
+﻿@model Infer.Services.InferenceResult?
+
+@{
     ViewData["Title"] = "Home Page";
+    var i = 0;
+}
+
+<form method="Post">
+    <input type="text" name="values"/>
+    <input type="submit"/>
+</form>
+
+<pre>
+00, 00, 00, 12, 13, 05, 00, 00,
+00, 00, 00, 11, 16, 09, 00, 00,
+00, 00, 03, 15, 16, 06, 00, 00,
+00, 07, 15, 16, 16, 02, 00, 00,
+00, 00, 01, 16, 16, 03, 00, 00,
+00, 00, 01, 16, 16, 06, 00, 00,
+00, 00, 01, 16, 16, 06, 00, 00,
+00, 00, 00, 11, 16, 10, 00, 00
+</pre>
+@if (Model != null)
+{
+    <div>Answer: @Model.Digit</div>
+    <ul>
+        @foreach (var prob in Model.Probabilities)
+        {
+            <li>@i : @prob</li>
+            {
+                i++;
+            }
+        }
+    </ul>
 }

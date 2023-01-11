@@ -8,17 +8,25 @@ namespace Infer.Controllers;
 public class HomeController : Controller
 {
     private readonly InferenceService _service;
-    private readonly ILogger<HomeController> _logger;
 
-    public HomeController(InferenceService service, ILogger<HomeController> logger)
+    public HomeController(InferenceService service)
     {
         _service = service;
-        _logger = logger;
     }
 
     public IActionResult Index()
     {
-        long[] data = { 0 };
+        return View();
+    }
+    
+    [HttpPost]
+    public IActionResult Index(string values)
+    {
+        var data = values.Split(',').Select(long.Parse).ToArray();
+        if (data.Length != 64)
+        {
+            return View();
+        }
         var value = _service.Infer(data);
         return View(value);
     }
