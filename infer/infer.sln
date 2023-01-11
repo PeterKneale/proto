@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infer", "infer\Infer.csproj", "{FDD6CEC5-8807-4338-839A-2176ACCF603C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infer.Tests", "Infer.Tests\Infer.Tests.csproj", "{96D9E4B5-0098-4A12-A743-C53A8382CB03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FDD6CEC5-8807-4338-839A-2176ACCF603C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDD6CEC5-8807-4338-839A-2176ACCF603C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDD6CEC5-8807-4338-839A-2176ACCF603C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDD6CEC5-8807-4338-839A-2176ACCF603C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96D9E4B5-0098-4A12-A743-C53A8382CB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96D9E4B5-0098-4A12-A743-C53A8382CB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96D9E4B5-0098-4A12-A743-C53A8382CB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96D9E4B5-0098-4A12-A743-C53A8382CB03}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
