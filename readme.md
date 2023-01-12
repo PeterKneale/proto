@@ -1,5 +1,8 @@
 
 # Overview
+
+![Overview](screen.png)
+
 ## Train
 
 
@@ -16,9 +19,8 @@ source ./venv/Scripts/activate
 pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
-- other
-install winsdk10
-install 
 ## Infer
 
-### Dotnet
+install winsdk10
+
+install visual c redistributable

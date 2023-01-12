@@ -62,7 +62,14 @@ public class HomeController : Controller
             for (var y = 0; y <= 7; y++)
             {
                 var bit = bitMapArray[x,y];
-                s.Append(bit.ToString("D2"));
+                if (bit != 0)
+                {
+                    s.Append(bit.ToString("D2"));
+                }
+                else
+                {
+                    s.Append("  ");
+                }
                 s.Append(" ");
             }
 
