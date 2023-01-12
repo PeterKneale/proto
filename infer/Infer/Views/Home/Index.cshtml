@@ -2,34 +2,128 @@
 
 @{
     ViewData["Title"] = "Home Page";
-    var i = 0;
 }
-
-<form method="Post">
-    <input type="text" name="values"/>
-    <input type="submit"/>
-</form>
-
-<pre>
-00, 00, 00, 12, 13, 05, 00, 00,
-00, 00, 00, 11, 16, 09, 00, 00,
-00, 00, 03, 15, 16, 06, 00, 00,
-00, 07, 15, 16, 16, 02, 00, 00,
-00, 00, 01, 16, 16, 03, 00, 00,
-00, 00, 01, 16, 16, 06, 00, 00,
-00, 00, 01, 16, 16, 06, 00, 00,
-00, 00, 00, 11, 16, 10, 00, 00
-</pre>
-@if (Model != null)
+@section Scripts
 {
-    <div>Answer: @Model.Digit</div>
-    <ul>
-        @foreach (var prob in Model.Probabilities)
-        {
-            <li>@i : @prob</li>
-            {
-                i++;
+    
+<script type="text/javascript">
+var canvas, ctx, flag = false,
+        prevX = 0,
+        currX = 0,
+        prevY = 0,
+        currY = 0,
+        dot_flag = true;
+
+ function init() {
+        canvas = document.getElementById('canvas');
+        ctx = canvas.getContext("2d");
+        w = canvas.width;
+        h = canvas.height;
+    
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+        canvas.addEventListener("mousemove", function (e) {
+            findxy('move', e)
+        }, false);
+        canvas.addEventListener("mousedown", function (e) {
+            findxy('down', e)
+        }, false);
+        canvas.addEventListener("mouseup", function (e) {
+            findxy('up', e)
+        }, false);
+        canvas.addEventListener("mouseout", function (e) {
+            findxy('out', e)
+        }, false);
+    }
+    
+    function draw() {
+        ctx.beginPath();
+        ctx.moveTo(prevX, prevY);
+        ctx.lineTo(currX, currY);
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 30;
+        ctx.stroke();
+        ctx.closePath();
+    }
+    
+    function save() {
+        var dataURL = canvas.toDataURL();
+        document.getElementById("values").value = dataURL;
+        document.getElementById("form").submit();
+    }
+    
+    function findxy(res, e) {
+        if (res == 'down') {
+            prevX = currX;
+            prevY = currY;
+            currX = e.clientX - canvas.offsetLeft;
+            currY = e.clientY - canvas.offsetTop;
+    
+            flag = true;
+            dot_flag = true;
+            if (dot_flag) {
+                ctx.beginPath();
+                ctx.fillStyle = "black";
+                ctx.fillRect(currX, currY, 2, 2);
+                ctx.closePath();
+                dot_flag = false;
             }
         }
-    </ul>
+        if (res == 'up' || res == "out") {
+            flag = false;
+        }
+        if (res == 'move') {
+            if (flag) {
+                prevX = currX;
+                prevY = currY;
+                currX = e.clientX - canvas.offsetLeft;
+                currY = e.clientY - canvas.offsetTop;
+                draw();
+            }
+        }
+    }    
+</script>
+
+<script>
+    $( document ).ready(function() {
+        init();
+    });
+ </script>
 }
+
+<form method="Post" id="form">
+    <input type="hidden" id="values" name="values"/>
+</form>
+
+<div class="row align-items-start">
+    <div class="col">
+        <input type="button" value="Infer!" id="btn" size="30" onclick="save()">
+        <br/>
+        <br/>
+        <canvas id="canvas" width="400" height="400" style="border:1px solid #d3d3d3;padding:0;"></canvas>
+    </div>
+    <div class="col">
+        @if (Model != null)
+        {
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Inferred Value: @Model.Digit</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @{
+                        var i = 0;
+                    }
+                    @foreach (var prob in Model.Probabilities)
+                    {
+                        <li class="list-group-item">
+                            <span class="badge bg-primary rounded-pill">@i</span>
+                            @prob
+                        </li>
+                        i++;
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</div>

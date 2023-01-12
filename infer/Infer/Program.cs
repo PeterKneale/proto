@@ -4,7 +4,8 @@ using Microsoft.ML.OnnxRuntime;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, InferenceService.Model);
 builder.Services.AddSingleton(new InferenceSession(path));
 builder.Services.AddSingleton<InferenceService>();
